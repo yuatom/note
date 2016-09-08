@@ -76,7 +76,7 @@ Nginx的master进程在`加载配置文件`时，在全局的Lua虚拟机上运�
 
 作用和`init_by_lua`一样，但是带花括号中嵌入代码，特殊字符需要转义。
 
-```shell
+```nginx
 init_by_lua_block {
      print("I need no extra escaping here, for example: \r\nblah")
  }
