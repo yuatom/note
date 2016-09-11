@@ -95,8 +95,15 @@
 * :m,n copy k，将m到n行复制到k行；
 * :m,ndd，删除m到n行；
 
+###配置
 * :set nu
 * :set nonu
+* :set hlsearch
+* :set nohlsearch
+* :syntax on
+* :syntax off
+* :set autoindent
+* :set noautoindent
 
 
 ## 3.视图模式
@@ -133,7 +140,12 @@
 * ~/.vimrc，保存vim配置的文件；
 * ~/.viminfo，记录vim编辑时的配置操作的文件；
 
+## 7.操作冲突处理
+打开时发现有其他人正在编辑该文件，如果你只是要查看内容而不修改，可以选择打开为只读（O），如果要修改，需要和其他编辑人员沟通；
 
+因为不知名的原因导致上次编辑中断，如果之前的vim处理动作尚未储存，此时应该恢复（R），恢复之后继续编辑，编辑完成后要删除swp文件；
+
+如果确定暂存文件是没用的，可以删除（D）
 
 
 
