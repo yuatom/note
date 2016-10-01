@@ -53,7 +53,7 @@ redis> GETBIT bit 10086
 ##MGET key [key ...]
 一次性获取多个key的值
 
-```shell
+```sh
 redis> SET redis redis.com
 OK
 
@@ -78,7 +78,7 @@ redis> MGET redis mongodb mysql     # 不存在的 mysql 返回 nil
 计算key的值中start到end中值为1的位数。
 http://doc.redisfans.com/string/bitcount.html
 
-```shell
+```sh
 redis> BITCOUNT bits
 (integer) 0
 

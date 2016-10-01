@@ -32,7 +32,7 @@ TIME，进程消耗CPU的时间；
 COMMAND，进程的启动命令；
 
 
-```shell
+```sh
 # 启动了nginx后台，有一个man在查看
 [root@6224a0586831 nginx]# ps
   PID TTY          TIME CMD
@@ -131,7 +131,7 @@ top [-d 数字]
 * N，以PID排序；
 * m，切换Memory的显示信息；
 
-```shell
+```sh
 [root@6224a0586831 /]# top
 top - 15:35:51 up  1:50,  0 users,  load average: 0.00, 0.00, 0.00
 Tasks:   6 total,   1 running,   5 sleeping,   0 stopped,   0 zombie
@@ -168,7 +168,7 @@ KiB Swap:   987960 total,   987960 free,        0 used.  1603016 avail Mem
 
 ###显示信息
 
-```shell
+```sh
 [root@6224a0586831 /]# top
 # 	目前的时间	开机至今的时间		已经登录用户数		系统在1，5，15分钟的平均工作负载
 top - 15:35:51 up  1:50,  0 users,  load average: 0.00, 0.00, 0.00
@@ -212,13 +212,13 @@ kill[参数][进程号]
 不指定信号的情况下，默认发出终止（15）信号。
 
 
-HUP    1    终端断线
-INT     2    中断（同 Ctrl + C）
-QUIT    3    退出（同 Ctrl + \）
-TERM   15    终止
-KILL    9    强制终止
-CONT   18    继续（与STOP相反， fg/bg命令）
-STOP    19    暂停（同 Ctrl + Z）
+* HUP    1    终端断线
+* INT     2    中断（同 Ctrl + C）
+* QUIT    3    退出（同 Ctrl + \）
+* TERM   15    终止
+* KILL    9    强制终止
+* CONT   18    继续（与STOP相反， fg/bg命令）
+* STOP    19    暂停（同 Ctrl + Z）
 
 
 

@@ -31,7 +31,7 @@
 以下命令，在容器运行结束后，将在当前目录下，生成一个目标容器上要备份的路径下的数据压缩文件。
 先将当前目录挂载到新容器的`/backup`，再将要保存的目录压缩保存到`/backup`上。
 
-```shell
+```sh
 # 使用--rm选项，在容器停止时自动删除容器
 docker run --rm --volumes-from <contaninner name> \
 -v $PWD:/backup ubuntu \
@@ -39,7 +39,7 @@ tar cvf /backup/<backup name>.tar <target path>
 ```
 
 ###例子
-```shell
+```sh
 # 指定卷，从james_blog容器中
 docker run -d -P --volumes-from james_blog jamtur01/apache
 d58eebeab912af3b23bcf7e551603b5628e8915cfbe1d059bc0dafc56d98bd3c
@@ -47,7 +47,7 @@ d58eebeab912af3b23bcf7e551603b5628e8915cfbe1d059bc0dafc56d98bd3c
 
 ##start，重新启动已经停止的容器
 
-```shell
+```sh
 docker start <id>/<name>
 ```
 docker restart命令也可以用来重新启动一个容器。
@@ -55,7 +55,7 @@ docker restart命令也可以用来重新启动一个容器。
 ##attach，附着到容器上
 通过start/restart启动一个容器时，会沿用run命令的选项，有时会在容器内部运行一个可交互回话shell。此外可以使用attach命名进入到容器的会话上（有时在运行该命令需要再按一次回车）。
 
-```shell
+```sh
 # 容器中有运行/bin/bash，attach后会回到/bin/bash上
 docker attach f76eaf5dedb0
 root@f76eaf5dedb0:/#
@@ -73,7 +73,7 @@ docker attach 86726cd8baed
 
 ##top，查看容器中进程
 
-```shell
+```sh
 docker top f56cfb948445
 UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
 root                11902               1028                0                   05:46               ?                   00:00:00            nginx: master process nginx -g daemon off;
@@ -82,12 +82,12 @@ root                11902               1028                0                   
 
 ##exec，在容器内部执行命令
 
-```shell
+```sh
 docker exec <option> <docker> <command>
 ```
 进入容器并运行命令。
 
-```shell
+```sh
 # 在后台创建一个配置文件，使用-d选项，在shell中不会输出返回
 docker exec -d f76eaf5dedb0 touch /etc/new_config_file
 
@@ -100,18 +100,18 @@ root@f76eaf5dedb0:/#
 
 ##stop，停止守护式容器
 
-```shell
+```sh
 docker stop <id>/<name>
 ```
 
 ##inspect，查看容器更多的信息
 
-```shell
+```sh
 docker inspect <id>/<name>
 ```
 除了该命令，该可以浏览`/var/lib/docker`目录来了解容器信息。
 
-```shell
+```sh
 docker inspect f76eaf5dedb0
 [
 {
@@ -260,12 +260,12 @@ docker inspect f76eaf5dedb0
 
 ##rm，删除容器
 
-```shell
+```sh
 docker rm <id>/<name>
 ```
 该命令只能删除已停止运行的容器。目前没有删除所有容器的命令，但可以使用以下小技巧来删除所有容器：
 
-```shell
+```sh
 docker rm `docker ps -a -q`
 ```
 

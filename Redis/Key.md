@@ -82,7 +82,7 @@ KEYS h[ae]llo 匹配 hello 和 hallo ，但不匹配 hillo 。
 
 http://doc.redisfans.com/key/sort.html
 
-```shell
+```sh
 redis> LPUSH today_cost 30 1.5 10 8
 (integer) 4
 
@@ -111,7 +111,7 @@ redis> LPUSH website "www.infoq.com"
 
 ###ALPHA选项，按字母排序
 
-```shell
+```sh
 # 默认（按数字）排序
 redis> SORT website
 1) "www.infoq.com"
@@ -134,7 +134,7 @@ redis> SORT website ALPHA
 |4	|mary	|70||
 
 ####输入数据
-```shell
+```sh
 #添加数据
 # admin
 
@@ -172,7 +172,7 @@ redis 127.0.0.1:6379> SET user_level_4 70
 
 ####排序查询
 
-```shell
+```sh
 # 默认排序
 redis 127.0.0.1:6379> SORT uid
 1) "1"      # admin
@@ -218,7 +218,7 @@ redis 127.0.0.1:6379> SORT uid BY user_level_* GET user_name_*
 ```
 
 ####使用哈希表保存表格数据
-
+sh
 ```shell
 # 使用哈希表保存的情况
 redis 127.0.0.1:6379> HMSET user_info_1 name admin level 9999
@@ -233,7 +233,7 @@ OK
 ```
 
 ####查询
-```shell
+```sh
 redis 127.0.0.1:6379> SORT uid BY user_info_*->level
 1) "2"
 2) "3"
@@ -249,7 +249,7 @@ redis 127.0.0.1:6379> SORT uid BY user_info_*->level GET user_info_*->name
 
 ###查询后保存
 
-```shell
+```sh
 # 测试数据
 redis 127.0.0.1:6379> RPUSH numbers 1 3 5 7 9
 (integer) 5
@@ -310,7 +310,7 @@ redis 127.0.0.1:6379> LRANGE sorted-numbers 0 -1
 ####COUNT
 SCAN命令本身不保证每次迭代返回的个数，可以用count选项来调整。
 
-```shell
+```sh
 # 开始一次新的迭代
 redis 127.0.0.1:6379> scan 0
 1) "17"
@@ -365,7 +365,7 @@ OBJECT 命令有多个子命令：
 >* 有序集合可以被编码为 ziplist 或者 skiplist 格式。 ziplist 用于表示小的有序集合，而 skiplist 则用于表示任何大小的有序集合。
 
 
-```shell
+```sh
 redis> SET game "COD"           # 设置一个字符串
 OK
 

@@ -17,7 +17,7 @@ redis-server ./redis.conf
 ###使用redis启动脚本设置开机自启动
 启动脚本，redis-x.x.x/utils/redis_init_script
 
-```shell
+```sh
 #!/bin/sh
 #
 # Simple Redis init.d script conceived to work on Linux systems
@@ -72,7 +72,7 @@ esac
 > 再将启动文件复制到/etc/init.d/目录中；
 
 
-```shell
+```sh
 # 创建配置目录
 [root@a11adc88a32c redis-3.2.4]# mkdir /etc/redis
 # 拷贝配置文件
@@ -85,14 +85,14 @@ service redisd does not support chkconfig
 
 因为每个chkconfig启动脚本在启动脚本中加入两行或更多注释：
 
-```shell
+```sh
 # chkconfig:   2345 90 10
 # description:  .....
 ```
 第一行告诉chkconfig缺省启动的运行级以及启动和停止优先级；
 第二行对服务进行注释；
 
-```shell
+```sh
 #!/bin/sh
 # chkconfig:   2345 90 10
 # description:  Redis is a persistent key-value database
@@ -116,14 +116,14 @@ service redisd does not support chkconfig
 
 修改启动脚本后启动
 
-```shell
+```sh
 # 启动服务
 [root@a11adc88a32c ~]# chkconfig redisd on
 [root@a11adc88a32c ~]# service redisd start
 ```
 会发现此时redis server在前台运行，因此需要修改启动脚本：
 
-```shell
+```sh
 # 在下面一行后面加上&
 EXEC $CONF
 # 即为下面这行
@@ -132,7 +132,7 @@ $EXEC $CONF &
 
 再执行开始命令：
 
-```shell
+```sh
 [root@a11adc88a32c ~]# chkconfig redisd on
 [root@a11adc88a32c ~]# service redisd start
 ```

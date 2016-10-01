@@ -1,12 +1,12 @@
 # Nginx & PHP
 
-```shell
+```sh
 docker run --name nginx-ct -d -p 80:80 -v /local/dir:/usr/share/nginx/html arkulo/nginx:v1
 ```
 -p 80:80 将docker虚拟机的80端口映射到nginx容器的80端口
 -v /local/dir:/usr/share/nginx/html 将本地主机的/local/dir映射到nginx容器的/usr/share/nginx/html上
 
-```shell
+```sh
 docker run --name php-fpm-ct -d -p 9000:9000 -v /local/dir:/usr/share/nginx/html arkulo/php-fpm:v1
 ```
 
@@ -15,7 +15,7 @@ Nginx容器中配置:/etc/nginx/conf.d/default.conf
 \$document_root的值为这个小节中root定义的值（/usr/share/nginx/html），必须挂载到php容器中的目录对应。
 如果php启动语句的配置为**/local/dir:/var/www/html**，则root必须定义为**/var/www/html**或**\$document_root\$fastcgi_script_name**改为**/var/www/html/$fastcgi_script_name**
 
-```shell
+```sh
 server {
     listen       80;
     server_name  localhost;

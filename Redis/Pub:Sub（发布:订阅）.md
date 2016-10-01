@@ -5,7 +5,7 @@
 ##PUBLISH channel message
 将消息发布到指定频道
 
-```shell
+```sh
 # term1 订阅两个频道
 27.0.0.1:6379> subscribe ch1 ch2
 Reading messages... (press Ctrl-C to quit)
@@ -59,7 +59,7 @@ pu1) "message"      #第一次发布的
 返回订阅模式（匹配的模式）的数量。
 注意， 这个命令返回的不是订阅模式的客户端的数量， 而是客户端订阅的所有模式的数量总和。
 
-```shell
+```sh
 # 模式1：ch*
 127.0.0.1:6379> PSUBSCRIBE ch*
 Reading messages... (press Ctrl-C to quit)

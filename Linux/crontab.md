@@ -7,7 +7,7 @@ crontab -l|-r|-e|-i [username]
   
 ##格式
 
-```shell
+```sh
  ~ *　　*　　*　　*　　*　　command
  # 分　 时　 日　 月　 周　 命令
 ```
@@ -20,7 +20,7 @@ crontab -l|-r|-e|-i [username]
 
 其中`日月`和`月星期`是 `OR`关系，即上面的语句会在每一年的9月27日或者是每一年的9月的每一个周日触发。如果这条命令的目的是指执行一次，但由于后面参数的`OR`关系，如果不及时清除该命令，会导致后来的每一年的九月份的每一个周日都会触发该事件。
 
-```shell
+```sh
 # 例子
 30 21 * * * /usr/local/apache/bin/apachectl restart
 #上面的例子表示每晚的21:30重启apache。
@@ -74,7 +74,7 @@ crontab -l|-r|-e|-i [username]
 * PATH，可执行文件的搜寻路径
 * MAILTO，如果有stdout，将数据以邮件发送给该用户
 
-```shell
+```sh
 root@scotchbox:~# cat /etc/crontab
 # /etc/crontab: system-wide crontab
 # Unlike any other crontab you don't have to run the `crontab'
@@ -101,7 +101,7 @@ MAILTO=root
 ###/etc/cron.d/*
 /etc/cron.d/放置crontab脚本，在这些脚本中，同样有可以指定部分配置和写入cron任务。
 
-```shell
+```sh
 cat /etc/cron.d/0hourly
 $ Run hourly jobs
 SHELL=/bin/bash

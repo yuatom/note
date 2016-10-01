@@ -16,7 +16,7 @@ netstat -tulnp  | grep portnumber
 * -p：显示PID；
 * -l：列出正在监听的服务；
 
-```shell
+```sh
 # 无参数
 [root@6224a0586831 /]# netstat
 Active Internet connections (w/o servers)
@@ -78,7 +78,7 @@ unix  3      [ ]         STREAM     CONNECTED     18082    37/nginx: master pr
 ##nslookup
 查询一台机器的IP地址和其对应的域名
 
-```
+```sh
 [root@6224a0586831 /]# nslookup baidu.com
 Server:		180.76.76.76
 Address:       	180.76.76.76#53
@@ -98,7 +98,7 @@ Address: 123.125.114.144
 ##host
 查询一个域名或IP地址的详细信息
 
-```shell
+```sh
 [root@6224a0586831 /]# host baidu.com
 baidu.com has address 220.181.57.217
 baidu.com has address 123.125.114.144

@@ -1,5 +1,5 @@
 #bash: service: command not found
 
-```shell
+```sh
 yum reinstall initscripts
 ```

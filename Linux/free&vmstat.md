@@ -1,14 +1,14 @@
 # free&vmstat
 查看内存情况
 
-```shell
+```sh
 free [-b|k|m|g|h] [-t] [-s N -c N]
 ```
 
 ## free
 查看内存情况
 
-```shell
+```sh
 free [-b|k|m|g|h] [-t] [-s N -c N]
 ```
 
@@ -19,7 +19,7 @@ free [-b|k|m|g|h] [-t] [-s N -c N]
 * -s :多久刷新一次；
 * -c :总共显示多少次，与-s配合使用；
  
-```shell
+```sh
 [root@6224a0586831 /]# free
               total        used        free      shared  buff/cache   available
 Mem:        2048660       54016     1687660      183756      306984     1686820
@@ -58,7 +58,7 @@ buff/cache对于OS来说，是已经被使用的；对于应用程序来说，�
 ##vmstat
 虚拟内存统计，可用来查看虚拟内存、进程、CPU活动。
 
-```shell
+```sh
 vmstat [-a] [延迟 [总计侦测次数]] # CPU/内存等信息
 vmstat [-fs] # 内存相关
 vmstat [-S 单位] # 设置显示数据的单位
@@ -75,7 +75,7 @@ vmstat [-p 分区] #与磁盘有关
 -p ：后面列出分区，可显示该分区的读写总量统计表
 
 
-```shell
+```sh
 # vmstat 1 3，查看资源信息，每秒刷新1次，总共刷新3次，后面的数字没给出的话，会无限刷新下去
 [root@6224a0586831 /]# vmstat 1 3
 procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----

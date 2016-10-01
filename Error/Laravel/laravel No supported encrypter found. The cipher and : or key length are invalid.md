@@ -2,7 +2,7 @@
 
 .env文件中缺少配置app_key，在项目目录运行
 
-```shell
+```sh
 php artisan key:generate
 ```
 

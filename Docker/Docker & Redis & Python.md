@@ -1,6 +1,6 @@
 # Docker & Redis & Python
 
-```shell
+```sh
 # 下载redis
 mkdir redis
 cd redis 
