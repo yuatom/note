@@ -1,4 +1,4 @@
-# free&vmstat
+# free&vmstat&proc&lsof&pidof
 查看内存情况
 
 ```sh
@@ -114,7 +114,23 @@ vda     8743      0  173164   21130    523   1554   16864    8490      0      2
 
 
 
+/proc/*    保存内存中的程序数据
+各个程序的PID都是以目录的形态存在于/proc当中。
+举例来说，开机所执行的第一支程序 systemd 他的 PID 是 1 ， 这个 PID 的所有相关信息都写入在/proc/1/* 当中。
 
+
+
+lsof [-aUu] [+d]
+选项与参数：
+-a ：多项数据需要“同时成立”才显示出结果时！
+-U ：仅列出 Unix like 系统的 socket 文件类型；
+-u ：后面接 username，列出该使用者相关程序所打开的文件；
++d ：后面接目录，亦即找出某个目录下面已经被打开的文件
+
+pidof [-sx] program_name
+选项与参数：
+-s ：仅列出一个 PID 而不列出所有的 PID
+-x ：同时列出该 program name 可能的 PPID 那个程序的 PID
 
 
 
