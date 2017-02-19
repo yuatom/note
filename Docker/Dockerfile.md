@@ -13,7 +13,7 @@
 `$ doucker build -f /path/dockerfile .`
 
 使用`-t`指出创建的镜像的仓库和标签
-`$ docker bulid -t vieux/apache:2.0 .`
+`$ docker build -t vieux/apache:2.0 .`
 `$ docker build -f dockerfiles/Dockerfile.debug -t myapp_debug .`
 `$ docker build -f dockerfiles/Dockerfile.prod  -t myapp_prod .`
 
@@ -117,7 +117,7 @@ CMD如果以exec或shell形式，设置的命令将会在镜像运行的时候�
 
 
 ###`ENTRYPOINT`，执行命令，不会被run覆盖
-功能与`CMD`相似，当不会被docker run覆盖。
+功能与`CMD`相似，但不会被docker run覆盖。
 也可以接受从`CMD`或`docker run`传入的参数（`CMD`与`docker run`指定命令的功能类似）。
 ####命令格式
 ```Dockerfile

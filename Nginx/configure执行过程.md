@@ -25,7 +25,104 @@
 
 ##执行./auto/unix定义UNIX系统中通用的头文件和系统调用
 
-##执行./auto/modules，读取模块数组，生产ngx_modules.c文件，该文件会被编译进Nginx
+##执行./auto/modules，读取模块数组，生成ngx_modules.c文件，该文件会被编译进Nginx
+
+### 加载模块目录配置
+
+一个自定义的模块源码会放在某个目录下，并且需要在这个目录中添加config文件。config文件需要包含以下3个变量：
+* ngx\_addon_name: configure执行时调用，设置为模块名称。
+* HTTP\_MODULES: 保存所有的HTTP模块名称，模块直接用空格隔开。注意不要覆盖原有的HTTP\_MODULES变量，一般为`"$HTTP\_MODULES ngx\_http\_my\_module"
+* NGX\_ADDON\_SRC: 指定新增模块的源代码目录，多个目录之间用空格隔开。注意不要覆盖原有的变量，同时该变量的定义中可以使用`$ngx_addon_dir`变量，该值等于configure时的`--add-module=PATH`中的PATH参数。
+
+通过在configure时添加`--add-module=PATH`选项来指定模块的目录。执行./auto/options时会将`--add-module`选项的值添加到`NGX_ADDONS`变量中。执行./auto/modules时根据`NGX_ADDONS`遍历需要编译的模块的目录，并执行这些目录中的config文件。
+
+```sh
+
+if test -n "$NGX_ADDONS"; then
+
+    echo configuring additional modules
+
+    for ngx_addon_dir in $NGX_ADDONS
+
+    do
+
+        echo "adding module in $ngx_addon_dir"
+
+        if test -f $ngx_addon_dir/config; then
+
+            . $ngx_addon_dir/config
+
+            echo " + $ngx_addon_name wad configured"
+
+        else
+            echo "$0: error: no $ngx_addon_dir/config was found"
+
+            exit 1
+
+        fi
+
+    done
+
+fi
+```
+
+### 生成ngx_module.c文件
+首先会将要编译的模块名添加到`modules`变量，随后遍历该变量，将模块添加到module.c中`ngx_module_t *ngx_modules[]`数组，Nginx在初始化时，会根据该数据来确定该用哪一个模块来处理。
+
+```sh
+# 定义modules变量
+modules="$CORE_MODULES $EVENT_MODULES"
+
+if [ $USE_OPENSLL = YES ]; then
+    modules="$modules $OPENSSL_MODULE"
+    CORE_DEPS="$CORE_DEPS $OPENSSL_DEPS"
+    CORE_SRCS="$CORE_SRCS $OPENSSL_SRCS"
+fi
+
+if [ $HTPP = YES ]; then
+    modules="$modules $HTTP_MODULES $HTTP_FILRTER_MOUDLE \
+                    $HTPP_HEADERS_FILTER_MODULE \
+                    $HTTP_AUX_FILTER_MODULE \
+                    $HTTP_COPY_FILTER_MODULE \
+                    $HTTP_RANGE_BODY_FILTER_MODULE \
+                    $HTTP_NOT_MODIFIED_FILTER_MODULE"
+    NGX_ADDONS_DEPS="$NGX_ADDONS_DEPS \$(HTTP_DEPS)"
+fi
+```
+
+开始将变量的值写进ngx_module.c文件
+
+```sh
+# 将输入输出到$NGX_MODULE_C变量所指定的路径中，遇到END时结束
+cat << END                                              > $NGX_MODULE_C
+
+#include <ngx_config.h>
+#include <ngx_core.h>
+
+$NGX_PRAGMA
+
+END
+
+for mod in $modules
+do 
+    echo "extern ngx_module_t   $mod;"
+done
+
+echo                                                    >> $NGX_MODULE_C
+echo 'ngx_module_t *ngx_modules[] = { '                 >> $NGX_MODULE_C
+
+for mod in $modules
+do
+    echo "      &$mod,"                                 >> $NGX_MODULE_C
+done
+
+cat << END                                              >> $NGX_MODULE_C
+    NULL
+};
+
+END
+
+```
 
 ##执行./auto/lib/conf检查第三方库
 
