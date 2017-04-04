@@ -43,5 +43,13 @@ sed [options] 'command' file(s)
 * n：下一行
 >* `/hello word/{ n; s/test/mytest; }`对匹配到的hello world的下一行进行后面的操作；
 
+
+## example
+
+```shell
+# 将所有的xxx.cpp替换为$ngx_objs_dirxxx$ngx_objext
+sed "s#^\(.*\.\)cpp\\$#$ngx_objs_dir\1$ngx_objext#g" 
+```
+
 http://www.cnblogs.com/emanlee/archive/2013/09/07/3307642.html
 http://www.iteye.com/topic/587673

@@ -134,6 +134,69 @@ END
 
 ##执行./auto/make创建编译时使用的objs/Makefile文件
 
+```shell
+# 转换第三方模块的文件路径以及文件的扩展名，并生成编译的命令写进Makefile中
+if test -n "$NGX_ADDON_SRCS"; then
+
+    ngx_cc="\$(CC) $ngx_compile_opt \$(CFLAGS) $ngx_use_pch \$(ALL_INCS)"
+
+    for ngx_src in $NGX_ADDON_SRCS
+    do
+
+        ngx_obj="addon/`basename \`dirname $ngx_src\``"
+            
+        ngx_obj=`echo $ngx_obj/\`basename $ngx_src\` \
+            sed -e "s/\//$ngx_regex_dirsep/g"`
+
+        ngx_obj=`echo $ngx_obj \
+            | sed -e
+            "s#\(.*\.\)cpp\\$#$ngx_objs_dir/1$ngx_objext#g" \
+            "s#\(.*\.\)cc\\$#$ngx_objs_dir/1$ngx_objext#g" \
+            "s#\(.*\.\)c\\$#$ngx_objs_dir/1$ngx_objext#g" \
+            "s#\(.*\.\)S\\$#$ngx_objs_dir/1$ngx_objext#g"`
+
+        ngx_src=`echo $ngx_src | sed -e "s/\\/$ngx_regex_dirsep/g"`
+
+        cat << END                                               >> $NGX_MAKEFILE
+
+$ngx_obj: \$(ADDON_DEPS)$ngx_cont$ngx_src
+    $ngx_cc$ngx_tab$ngx_objout$ngx_obj$ngx_tab$ngx_src$NGX_AUX
+
+END
+    done
+fi
+```
+
+
+```shell
+# 将模块的目标文件设置到ngx_obj变量中，并生成Makefile文件中的链接代码
+
+for ngx_src in $NGX_ADDON_SRCS
+do
+    ngx_obj="addon/`basename \`dirname $ngx_src\``"
+
+    test -d $NGX_OBJS/$ngx_obj || mkdir -p $NGC_OBJS/$ngx_obj
+
+    ngx_obj=`echo $ngx_obj/\`basename $ngx_src\`    \
+        | sed -e "s/\//$ngx_regex_dirsep/g"`
+
+    ngx_all_srcs="$ngx_all_srcs $ngx_obj"
+done
+
+...
+
+cat << END                                                      >> $NGX_MAKEFILE
+
+$NGX_OBJS${ngx_dirsep}nginx${ngx_binext}:
+    $ngx_deps$ngx_spacer \${LINK}
+    ${ngx_long_start}${ngx_binout}$NGX_OBJS${ngx_dirsep}nginx$ngx_long_cont$ngx_objs$ngx_libs$ngx_link
+    $ngx_rcc
+${ngx_long_end}
+END
+```
+
+ADDON_DEPS = \$(CORE_DEPS) $NGX_ADDON_DEPS
+
 ##执行./auto/lib/make，为objs/Makefile加入需要的第三库
 
 ##执行./auto/install，为objs/Makefile加入install功能
