@@ -163,11 +163,84 @@ data_type var = val;    // 初始化
 * 以字母或下划线开头，可包含字母/数字/下划线，区分大小写；
 * 变量在使用前必须声明，在声明时不会为变量分配内存空间，内存空间的分配发生在变量定义的时候；
 
-### 变量类型
+### Types of Variable 变量类型
 
 * 本地变量：在函数中声明，且仅在函数中可见；
 * 全局变量：在main函数外声明，在整个程序中均可见；
 * 环境变量：在所有的C程序中都可见，不需要用户去定义，可使用`setent`，`getenv`，`putenv`等函数来存取环境变量
+
+
+### Type Qualifilers 类型修饰关键字
+
+* const：常量，一旦赋值就不能更改。`const int i`、`const int *i`；
+* volatile：易变量，该关键字告诉编译器该变量是易变的，必须每次都从内存中读取，比如记录系统时钟的变量。
+
+
+### Storage Class Specifiers 存储修饰符
+告诉编译器所修饰的变量要保存的位置、保存的方式、初始值及生命周期。
+
+* auto：保存在内存、垃圾值（未经过初始化）、本地变量、函数执行结束时；
+* exern：保存在内存、0、全局变量、main函数执行结束时，表示该变量是在其他地方定义的，此处只是使用；
+* static：保存在内存、0、本地变量、变量会在不同的函数调用时保留；
+* register：保存在寄存器中、垃圾值、本地变量，函数执行结束时；
+
+>* register变量的存取速度比auto快，因为register变量保存在CPU寄存器中；
+>* 只有极少数变量能保存在寄存器中，因此只能对那些经常使用的变量使用register修饰；
+
+
+#### 例子
+```c
+#include<stdio.h>
+void increment(void);
+int main() {
+    increment();    // 0
+    increment();    // 0
+    increment();    // 0
+    increment();    // 0
+    return 0;
+}
+
+void increment(void) {
+    auto int i = 0;
+    printf("%d ", i);
+    i++;                    // auto变量i在increment结束时销毁
+}
+```
+
+
+```c
+#include<stdio.h>
+void increment(void);
+int main() {
+    increment();    // 0
+    increment();    // 1
+    increment();    // 2
+    increment();    // 3
+    return 0;
+}
+
+void increment(void) {
+    static int i = 0;
+    printf("%d ", i);
+    i++;                    // static变量id会一直存在直到main函数执行结束才销毁
+}
+```
+
+
+```c
+#include<stdio.h>
+ 
+int x = 10 ;
+int main( ) {
+    extern int y;                                    // extern表示该变量在其他地方定义，这里只是使用
+    printf("The value of x is %d \n",x);    // The value of x is 10
+    printf("The value of y is %d",y);        // The value of y is 50
+    return 0;
+}
+int y=50;   // 变量y的定义
+```
+
+
 
 
 ## 4. Operator and Expressions 操作和表达式 
@@ -185,3 +258,4 @@ data_type var = val;    // 初始化
 * 条件控制：if () {} / if () {} else {} / if () {} else if () {}；
 * 循环控制：for / while / do while；
 * 分支控制：switch / goto；
+
