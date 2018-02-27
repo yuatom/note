@@ -1,0 +1,1 @@
+docker run -d --name centos-dev -v $CODE_DIR:/data -P --privileged -it yuatom/centos-dev:v2 /bin/bash
